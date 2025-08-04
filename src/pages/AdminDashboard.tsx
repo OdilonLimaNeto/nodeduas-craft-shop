@@ -13,9 +13,7 @@ import {
   Settings,
   LogOut
 } from 'lucide-react';
-import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/integrations/supabase/client';
-import { useToast } from '@/hooks/use-toast';
 
 interface DashboardStats {
   totalProducts: number;
@@ -32,9 +30,6 @@ export default function AdminDashboard() {
     materialsCount: 0,
   });
   const [loading, setLoading] = useState(true);
-  const { user, signOut } = useAuth();
-  const navigate = useNavigate();
-  const { toast } = useToast();
 
   useEffect(() => {
     loadDashboardStats();
@@ -80,18 +75,6 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleSignOut = async () => {
-    const { error } = await signOut();
-    if (error) {
-      toast({
-        title: "Erro ao sair",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      navigate('/');
-    }
-  };
 
   const menuItems = [
     {
@@ -145,13 +128,9 @@ export default function AdminDashboard() {
             </div>
             <div className="flex items-center space-x-4">
               <div className="text-right">
-                <p className="text-sm font-medium">{user?.email}</p>
-                <Badge variant="secondary">Administrador</Badge>
+                <p className="text-sm font-medium">Administrador</p>
+                <Badge variant="secondary">Painel de Controle</Badge>
               </div>
-              <Button variant="outline" size="sm" onClick={handleSignOut}>
-                <LogOut className="h-4 w-4 mr-2" />
-                Sair
-              </Button>
             </div>
           </div>
         </div>
