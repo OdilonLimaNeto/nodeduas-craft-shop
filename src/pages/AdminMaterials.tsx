@@ -130,7 +130,7 @@ export default function AdminMaterials() {
       } else {
         const { error } = await supabase
           .from('materials')
-          .insert(materialData);
+          .insert([materialData as any]);
 
         if (error) throw error;
         toast({ title: 'Material criado com sucesso!' });

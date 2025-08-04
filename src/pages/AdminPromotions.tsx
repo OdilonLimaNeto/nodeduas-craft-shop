@@ -134,7 +134,7 @@ export default function AdminPromotions() {
       } else {
         const { error } = await supabase
           .from('promotions')
-          .insert(values);
+          .insert([values as any]);
 
         if (error) throw error;
         toast({ title: 'Promoção criada com sucesso!' });

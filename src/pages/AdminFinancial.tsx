@@ -107,7 +107,7 @@ export default function AdminFinancial() {
     try {
       const { error } = await supabase
         .from('financial_records')
-        .insert(values);
+        .insert([values as any]);
 
       if (error) throw error;
 
