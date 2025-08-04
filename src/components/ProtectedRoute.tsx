@@ -12,16 +12,22 @@ export const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRout
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('🛡️ ProtectedRoute check - Loading:', loading, 'User:', !!user, 'IsAdmin:', isAdmin, 'RequireAdmin:', requireAdmin);
+    
     if (!loading) {
       if (!user) {
+        console.log('🛡️ No user, redirecting to login');
         navigate('/admin/login');
         return;
       }
       
       if (requireAdmin && !isAdmin) {
+        console.log('🛡️ User not admin, redirecting to home');
         navigate('/');
         return;
       }
+      
+      console.log('🛡️ Access granted!');
     }
   }, [user, loading, isAdmin, requireAdmin, navigate]);
 

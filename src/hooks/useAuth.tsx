@@ -21,29 +21,44 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
+    console.log('🔐 AuthProvider: Setting up auth listener...');
+    
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        console.log('🔐 Auth event:', event, 'Session:', !!session);
+        
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
+          console.log('👤 User logged in, checking admin status...');
           // Check if user is admin
           setTimeout(async () => {
             try {
-              const { data: profile } = await supabase
+              const { data: profile, error } = await supabase
                 .from('profiles')
                 .select('role')
                 .eq('user_id', session.user.id)
                 .single();
               
-              setIsAdmin(profile?.role === 'admin');
+              console.log('👤 Profile data:', profile, 'Error:', error);
+              
+              if (error) {
+                console.error('❌ Error fetching profile:', error);
+                setIsAdmin(false);
+              } else {
+                const isUserAdmin = profile?.role === 'admin';
+                console.log('🔑 Is admin?', isUserAdmin);
+                setIsAdmin(isUserAdmin);
+              }
             } catch (error) {
-              console.error('Error checking admin status:', error);
+              console.error('❌ Exception checking admin status:', error);
               setIsAdmin(false);
             }
           }, 0);
         } else {
+          console.log('👤 No user, setting admin to false');
           setIsAdmin(false);
         }
         
@@ -53,6 +68,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log('🔐 Initial session check:', !!session);
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);

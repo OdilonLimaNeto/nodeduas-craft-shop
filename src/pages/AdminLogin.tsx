@@ -20,9 +20,13 @@ export default function AdminLogin() {
   const { toast } = useToast();
 
   useEffect(() => {
+    console.log('🔐 AdminLogin - User:', !!user, 'IsAdmin:', isAdmin);
+    
     if (user && isAdmin) {
+      console.log('🔐 User is admin, redirecting to dashboard');
       navigate('/admin/dashboard');
     } else if (user && !isAdmin) {
+      console.log('🔐 User is not admin, redirecting to home');
       navigate('/');
     }
   }, [user, isAdmin, navigate]);
