@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Heart, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-crochet.jpg";
 
 export const Hero = () => {
@@ -69,18 +70,20 @@ export const Hero = () => {
               />
               
               {/* Floating Card */}
-              <div className="absolute bottom-6 left-6 right-6 bg-background/95 backdrop-blur-sm rounded-xl p-6 border border-border/50">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="font-semibold text-primary">Novo: Bolsa Artesanal</h3>
-                    <p className="text-sm text-muted-foreground">Disponível em 3 cores</p>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-craft-coral">R$ 89,90</div>
-                    <div className="text-xs text-muted-foreground line-through">R$ 120,00</div>
+              <Link to="/produto/1" className="block">
+                <div className="absolute bottom-6 left-6 right-6 bg-background/95 backdrop-blur-sm rounded-xl p-6 border border-border/50 hover:bg-background transition-all hover:shadow-lg cursor-pointer">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="font-semibold text-primary">Novo: Bolsa Artesanal</h3>
+                      <p className="text-sm text-muted-foreground">Disponível em 3 cores</p>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-lg font-bold text-craft-coral">R$ 89,90</div>
+                      <div className="text-xs text-muted-foreground line-through">R$ 120,00</div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
 
             {/* Decorative Elements */}
