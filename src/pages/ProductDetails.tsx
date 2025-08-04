@@ -30,8 +30,35 @@ const ProductDetails = () => {
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div className="space-y-4">
-            <div className="aspect-square rounded-2xl bg-craft-sage/20 flex items-center justify-center">
-              <span className="text-muted-foreground">Imagem do Produto</span>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=600" 
+                alt="Bolsa Artesanal - Imagem principal"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="aspect-square rounded-lg overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=200" 
+                  alt="Bolsa Artesanal - Detalhe 1"
+                  className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                />
+              </div>
+              <div className="aspect-square rounded-lg overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=200" 
+                  alt="Bolsa Artesanal - Detalhe 2"
+                  className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                />
+              </div>
+              <div className="aspect-square rounded-lg overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=200" 
+                  alt="Bolsa Artesanal - Detalhe 3"
+                  className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                />
+              </div>
             </div>
           </div>
 

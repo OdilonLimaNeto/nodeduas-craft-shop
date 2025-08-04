@@ -11,7 +11,11 @@ const featuredProducts = [
     name: "Bolsa Artesanal Premium",
     price: 89.90,
     originalPrice: 120.00,
-    image: crochetBag1,
+    images: [
+      crochetBag1,
+      "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400",
+      "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400"
+    ],
     rating: 4.8,
     reviewCount: 24,
     category: "Bolsas & Acessórios",
@@ -22,7 +26,11 @@ const featuredProducts = [
     id: "2",
     name: "Cachecol Elegante",
     price: 65.00,
-    image: crochetScarf1,
+    images: [
+      crochetScarf1,
+      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400",
+      "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400"
+    ],
     rating: 4.9,
     reviewCount: 18,
     category: "Acessórios",
@@ -34,7 +42,11 @@ const featuredProducts = [
     name: "Touca Baby Delicada",
     price: 35.00,
     originalPrice: 45.00,
-    image: crochetHat1,
+    images: [
+      crochetHat1,
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400",
+      "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=400"
+    ],
     rating: 5.0,
     reviewCount: 12,
     category: "Baby & Kids",
