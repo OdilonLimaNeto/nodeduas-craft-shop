@@ -44,11 +44,6 @@ const featuredProducts = [
 ];
 
 export const FeaturedProducts = () => {
-  const handleAddToCart = (productId: string) => {
-    console.log("Adicionar ao carrinho:", productId);
-    // Aqui você implementaria a lógica do carrinho
-  };
-
   const handleToggleFavorite = (productId: string) => {
     console.log("Toggle favorito:", productId);
     // Aqui você implementaria a lógica de favoritos
@@ -78,7 +73,6 @@ export const FeaturedProducts = () => {
             >
               <ProductCard
                 product={product}
-                onAddToCart={handleAddToCart}
                 onToggleFavorite={handleToggleFavorite}
               />
             </div>

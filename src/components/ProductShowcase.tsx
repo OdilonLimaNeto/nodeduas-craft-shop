@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ProductGallery } from "./ProductGallery";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, ShoppingCart, Truck, Shield, RotateCcw, MessageCircle } from "lucide-react";
+import { Heart, MessageCircle, Shield, Award, Truck, RotateCcw } from "lucide-react";
 import crochetBag1 from "@/assets/crochet-bag-1.jpg";
 import crochetScarf1 from "@/assets/crochet-scarf-1.jpg";
 import crochetHat1 from "@/assets/crochet-hat-1.jpg";
@@ -145,30 +145,25 @@ export const ProductShowcase = () => {
               </div>
             </div>
 
-            {/* Actions */}
+            {/* Action Buttons */}
             <div className="space-y-4">
-              <div className="flex space-x-4">
-                <Button className="flex-1 craft-button">
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  Adicionar ao Carrinho
-                </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className={isFavorite ? "text-craft-coral border-craft-coral" : ""}
-                  onClick={() => setIsFavorite(!isFavorite)}
-                >
-                  <Heart className={`h-4 w-4 ${isFavorite ? 'fill-current' : ''}`} />
-                </Button>
-              </div>
-
               <Button 
-                variant="outline" 
-                className="w-full border-green-500 text-green-600 hover:bg-green-50"
+                className="w-full craft-button" 
+                size="lg"
                 onClick={handleWhatsAppContact}
               >
-                <MessageCircle className="mr-2 h-4 w-4" />
-                Consultar via WhatsApp
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Comprar via WhatsApp
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="lg"
+                className={`w-full ${isFavorite ? 'text-craft-coral border-craft-coral' : ''}`}
+                onClick={() => setIsFavorite(!isFavorite)}
+              >
+                <Heart className={`mr-2 h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
+                {isFavorite ? 'Favoritado' : 'Favoritar'}
               </Button>
             </div>
 
