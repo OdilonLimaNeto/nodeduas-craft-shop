@@ -1,4 +1,4 @@
-import { Heart, ShoppingCart, Star } from "lucide-react";
+import { Heart, MessageCircle, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -17,13 +17,11 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
-  onAddToCart?: (productId: string) => void;
   onToggleFavorite?: (productId: string) => void;
 }
 
 export const ProductCard = ({ 
   product, 
-  onAddToCart, 
   onToggleFavorite 
 }: ProductCardProps) => {
   const discount = product.originalPrice 
@@ -64,14 +62,17 @@ export const ProductCard = ({
           />
         </Button>
 
-        {/* Quick Add to Cart */}
+        {/* Quick WhatsApp Contact */}
         <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <Button 
             className="w-full craft-button"
-            onClick={() => onAddToCart?.(product.id)}
+            onClick={() => {
+              const message = `Olá! Tenho interesse no produto: ${product.name} - R$ ${product.price.toFixed(2).replace('.', ',')}`;
+              window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(message)}`, '_blank');
+            }}
           >
-            <ShoppingCart className="mr-2 h-4 w-4" />
-            Adicionar ao Carrinho
+            <MessageCircle className="mr-2 h-4 w-4" />
+            Consultar no WhatsApp
           </Button>
         </div>
       </div>
