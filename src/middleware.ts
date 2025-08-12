@@ -1,38 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
-import { decode } from "next-auth/jwt";
+import { jwtDecode } from "jwt-decode";
 
-// O usuário não deve acessar o signIn quando estiver logado,
-const publicRoutes = [{ path: "/", whenAuthenticated: "redirect" }] as const;
+// Rotas públicas
+const publicRoutes = [
+  { path: "/sign-in", whenAuthenticated: "redirect" }, // O usuário não deve acessar o signIn quando estiver logado
+  { path: "/terms", whenAuthenticated: "next" },
+  //{ path: "/user/callback-sso", whenAuthenticated: "redirect" },
+  { path: "/", whenAuthenticated: "next" }, // se estiver autenticado e tentar acessa a home --> acesso permitido
+] as const;
 
-const REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE = "/";
+// Rota que devemos redirecionar o usuário quando ele tentar acessar uma rota autenticada e não estiver autenticado
+const REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE = "/sign-in";
 
-export default async function middleware(request: NextRequest) {
-  // Pega o endereço que vem depois da URL principal da aplicação
+export function middleware(request: NextRequest) {
+  // endereço que vem depois da URL principal da aplicação
   const path = request.nextUrl.pathname;
 
-  // Verifica se o caminho (path) termina com uma extensão de arquivo (por exemplo, ".png", ".css", ".js", etc.)
-  if (/\.[^/]+$/.test(path)) return NextResponse.next();
+  if (/\.[^/]+$/.test(path)) {
+    return NextResponse.next();
+  }
 
   const publicRoute = publicRoutes.find((route) => route.path === path);
 
-  const authToken = request.cookies.get("next-auth.session-token");
+  const authToken = request.cookies.get("jwt");
 
-  // Se não estiver autenticado e for rota pública -> acesso permitido
   if (!authToken && publicRoute) {
     return NextResponse.next();
   }
 
-  // Se não estiver autenticado e for rota privada
   if (!authToken && !publicRoute) {
     const redirectUrl = request.nextUrl.clone();
 
     redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE;
 
-    // Redireciona para o Login
     return NextResponse.redirect(redirectUrl);
   }
 
-  // Se estiver autenticado e for rota pública e tentar acessar o login -> redireciona para a main
   if (
     authToken &&
     publicRoute &&
@@ -40,52 +43,40 @@ export default async function middleware(request: NextRequest) {
   ) {
     const redirectUrl = request.nextUrl.clone();
 
-    redirectUrl.pathname = "/main";
+    redirectUrl.pathname = "/";
 
     return NextResponse.redirect(redirectUrl);
   }
 
-  // Se estiver autenticado e acessar rota privada -> validar validade do token
   if (authToken && !publicRoute) {
-    try {
-      const decoded = await decode({
-        secret: process.env.NEXTAUTH_SECRET as string,
-        token: authToken.value,
-      });
+    const decoded = jwtDecode(authToken.value);
 
-      const expTimestamp = decoded?.exp;
+    const expTimestamp = decoded.exp;
 
-      // // Se o token não possuir data de expiração redireciona para a página de autenticação
-      if (!expTimestamp) {
-        const redirectUrl = request.nextUrl.clone();
-
-        redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE;
-
-        return NextResponse.redirect(redirectUrl);
-      }
-
-      const expDate = new Date(+expTimestamp * 1000);
-
-      // Se o token estiver expirado, redireciona para a página de autenticação
-      if (new Date() > expDate) {
-        const redirectUrl = request.nextUrl.clone();
-
-        redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE;
-
-        return NextResponse.redirect(redirectUrl);
-      }
-    } catch (error) {
-      // Se falhou na decodificação, redireciona para a página de autenticação
+    // Se o token não possuir data de expiração redireciona para a página de autenticação
+    if (!expTimestamp) {
       const redirectUrl = request.nextUrl.clone();
 
       redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE;
 
       return NextResponse.redirect(redirectUrl);
     }
+
+    const expDate = new Date(expTimestamp * 1000);
+
+    // Se o token estiver expirado, redireciona para a página de autenticação
+    if (new Date() > expDate) {
+      const redirectUrl = request.nextUrl.clone();
+
+      redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE;
+
+      return NextResponse.redirect(redirectUrl);
+    }
+
+    return NextResponse.next();
   }
 }
 
-// Middleware não deve ser executado para: API, arquivos estáticos, imagens, etc.
 export const config = {
   matcher: [
     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
