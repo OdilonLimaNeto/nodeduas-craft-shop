@@ -1,58 +1,57 @@
+"use client";
+
 import { ProductCard } from "./ProductCard";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import crochetBag1 from "@/assets/crochet-bag-1.jpg";
-import crochetScarf1 from "@/assets/crochet-scarf-1.jpg";
-import crochetHat1 from "@/assets/crochet-hat-1.jpg";
 
 const featuredProducts = [
   {
     id: "1",
     name: "Bolsa Artesanal Premium",
-    price: 89.90,
-    originalPrice: 120.00,
+    price: 89.9,
+    originalPrice: 120.0,
     images: [
-      crochetBag1,
-      "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=400",
-      "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400"
+      "/img/crochet-bag-1.jpg",
+      "https://images.unsplash.com/photo-unsplash.com/photo-1649972904349-6e44c42644a7?w=400",
+      "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400",
     ],
     rating: 4.8,
     reviewCount: 24,
     category: "Bolsas & Acessórios",
     isNew: true,
-    isFavorite: false
+    isFavorite: false,
   },
   {
     id: "2",
     name: "Cachecol Elegante",
-    price: 65.00,
+    price: 65.0,
     images: [
-      crochetScarf1,
+      "/img/crochet-scarf-1.jpg",
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400",
-      "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400"
+      "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?w=400",
     ],
     rating: 4.9,
     reviewCount: 18,
     category: "Acessórios",
     isNew: false,
-    isFavorite: true
+    isFavorite: true,
   },
   {
     id: "3",
     name: "Touca Baby Delicada",
-    price: 35.00,
-    originalPrice: 45.00,
+    price: 35.0,
+    originalPrice: 45.0,
     images: [
-      crochetHat1,
+      "/img/crochet-hat-1.jpg",
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400",
-      "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=400"
+      "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?w=400",
     ],
     rating: 5.0,
     reviewCount: 12,
     category: "Baby & Kids",
     isNew: true,
-    isFavorite: false
-  }
+    isFavorite: false,
+  },
 ];
 
 export const FeaturedProducts = () => {
@@ -70,15 +69,15 @@ export const FeaturedProducts = () => {
             Produtos em Destaque
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Descubra nossa seleção especial de peças artesanais, 
-            cada uma criada com carinho e atenção aos detalhes.
+            Descubra nossa seleção especial de peças artesanais, cada uma criada
+            com carinho e atenção aos detalhes.
           </p>
         </div>
 
         {/* Products Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {featuredProducts.map((product, index) => (
-            <div 
+            <div
               key={product.id}
               className="animate-fade-in"
               style={{ animationDelay: `${index * 150}ms` }}
@@ -102,19 +101,27 @@ export const FeaturedProducts = () => {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-border">
           <div className="text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">50+</div>
+            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">
+              50+
+            </div>
             <div className="text-muted-foreground">Modelos Únicos</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">24h</div>
+            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">
+              24h
+            </div>
             <div className="text-muted-foreground">Envio Rápido</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">100%</div>
+            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">
+              100%
+            </div>
             <div className="text-muted-foreground">Artesanal</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">⭐ 4.9</div>
+            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">
+              ⭐ 4.9
+            </div>
             <div className="text-muted-foreground">Avaliação</div>
           </div>
         </div>

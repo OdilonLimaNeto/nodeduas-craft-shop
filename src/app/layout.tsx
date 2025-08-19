@@ -22,8 +22,9 @@ export default function RootLayout({
         <body className={inter.className} suppressHydrationWarning>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
+            defaultTheme="system"
+            enableSystem={true}
+            disableTransitionOnChange
           >
             <Toaster
               position="top-right"
