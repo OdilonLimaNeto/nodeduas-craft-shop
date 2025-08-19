@@ -5,6 +5,7 @@ import { Menu, X, Search, User, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -24,6 +25,7 @@ const ThemeToggle = () => {
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const router = useRouter();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -87,7 +89,12 @@ export const Header = () => {
                 className="pl-10 w-64 bg-background border-border"
               />
             </div>
-            <Button variant="ghost" size="icon">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => router.push("/admin/login")}
+              className="cursor-pointer"
+            >
               <User className="h-5 w-5" />
             </Button>
             <ThemeToggle />
@@ -145,7 +152,12 @@ export const Header = () => {
               </a>
             </nav>
             <div className="flex items-center space-x-4 pt-2">
-              <Button variant="ghost" size="icon">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => router.push("/admin/login")}
+                className="cursor-pointer"
+              >
                 <User className="h-5 w-5" />
               </Button>
               <ThemeToggle />
