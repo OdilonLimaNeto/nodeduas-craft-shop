@@ -3,14 +3,14 @@ import { jwtDecode } from "jwt-decode";
 
 // Rotas públicas
 const publicRoutes = [
-  { path: "/sign-in", whenAuthenticated: "redirect" }, // O usuário não deve acessar o signIn quando estiver logado
-  { path: "/terms", whenAuthenticated: "next" },
+  { path: "/admin/login", whenAuthenticated: "redirect" }, // O usuário não deve acessar o signIn quando estiver logado
+  { path: "/produto/:id", whenAuthenticated: "next" },
   //{ path: "/user/callback-sso", whenAuthenticated: "redirect" },
   { path: "/", whenAuthenticated: "next" }, // se estiver autenticado e tentar acessa a home --> acesso permitido
 ] as const;
 
 // Rota que devemos redirecionar o usuário quando ele tentar acessar uma rota autenticada e não estiver autenticado
-const REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE = "/sign-in";
+const REDIRECT_WHEN_NOT_AUTHENTICATE_ROUTE = "/admin/login";
 
 export function middleware(request: NextRequest) {
   // endereço que vem depois da URL principal da aplicação
