@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { ErrorMessage } from "@/components/ErrorMessage";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,23 +9,47 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { signInData, signInSchema } from "@/validations/sign-in-validation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { MoveRight } from "lucide-react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function AdminLogin() {
   const router = useRouter();
 
-  useEffect(() => {
-    // Redireciona automaticamente para o dashboard sem autenticação
-    const timer = setTimeout(() => {
+  const form = useForm<signInData>({
+    resolver: zodResolver(signInSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  async function handleSignIn(data: signInData) {
+    const response = await signIn("credentials", {
+      email: data.email,
+      password: data.password,
+      redirect: false,
+    });
+
+    if (response?.ok) {
+      router.refresh();
       router.push("/admin/dashboard");
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [router]);
-
-  const handleDirectAccess = () => {
-    router.push("/admin/dashboard");
-  };
+    } else {
+      toast.error(response?.error || "Email ou senha inválidos.");
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
@@ -42,19 +66,60 @@ export default function AdminLogin() {
 
         <Card>
           <CardHeader className="text-center">
-            <CardTitle>Acesso Direto</CardTitle>
+            <CardTitle>Login</CardTitle>
             <CardDescription>
-              Clique no botão abaixo para acessar o painel administrativo
+              Digite seu e-mail e senha para acessar o sistema
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <Button onClick={handleDirectAccess} className="w-full" size="lg">
-              Acessar Dashboard
-            </Button>
 
-            <div className="text-center text-sm text-muted-foreground">
-              Redirecionamento automático em 1 segundo...
-            </div>
+          <CardContent className="space-y-4">
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(handleSignIn)}
+                className="space-y-6"
+              >
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>E-mail</FormLabel>
+                      <FormControl>
+                        <Input placeholder="seu@email.com" {...field} />
+                      </FormControl>
+                      <ErrorMessage field="email" />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Senha</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="••••••••"
+                          {...field}
+                        />
+                      </FormControl>
+                      <ErrorMessage field="password" />
+                    </FormItem>
+                  )}
+                />
+
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={form.formState.isSubmitting}
+                >
+                  Acessar
+                  <MoveRight className="ml-2 h-5 w-5" />
+                </Button>
+              </form>
+            </Form>
           </CardContent>
         </Card>
 
