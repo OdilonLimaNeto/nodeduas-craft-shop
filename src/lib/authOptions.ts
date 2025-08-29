@@ -16,15 +16,16 @@ export const nextAuthOptions: NextAuthOptions = {
         if (!credentials) return null;
 
         try {
-          const response = await login(credentials);
+          const response = await login(credentials.email, credentials.password);
 
           if (response.status !== 201) return null;
 
-          const { user: userInfo, token } = response.data;
+          const { user: userInfo, access_token, refresh_token } = response.data;
 
-          if (!userInfo || !token) return null;
+          if (!userInfo || !access_token || !refresh_token) return null;
 
-          (await cookies()).set("jwt", token);
+          (await cookies()).set("jwt", access_token);
+          (await cookies()).set("refresh_token", refresh_token);
           (await cookies()).set("user", JSON.stringify(userInfo));
 
           const user: User & { partnerToken?: string } = {
@@ -44,4 +45,3 @@ export const nextAuthOptions: NextAuthOptions = {
     }),
   ],
 };
-
