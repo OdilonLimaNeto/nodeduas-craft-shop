@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { signInData, signInSchema } from "@/validations/sign-in-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MoveRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -116,7 +116,7 @@ export default function AdminLogin() {
                   disabled={form.formState.isSubmitting}
                 >
                   Acessar
-                  <MoveRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </form>
             </Form>

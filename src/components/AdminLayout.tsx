@@ -1,5 +1,6 @@
+"use client";
+
 import { ReactNode } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -18,6 +19,8 @@ import {
   Tag,
   ArrowLeft,
 } from 'lucide-react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 
 interface AdminLayoutProps {
   children: ReactNode;
@@ -54,11 +57,11 @@ const navigationItems = [
 ];
 
 export const AdminLayout = ({ children, title, showBackButton = false }: AdminLayoutProps) => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const getBreadcrumbs = () => {
-    const pathSegments = location.pathname.split('/').filter(Boolean);
+    const pathSegments = pathname.split('/').filter(Boolean);
     const breadcrumbs = [
       { label: 'Admin', href: '/admin/dashboard', isLast: false },
     ];
@@ -75,7 +78,7 @@ export const AdminLayout = ({ children, title, showBackButton = false }: AdminLa
 
       breadcrumbs.push({
         label: pageLabels[currentPage] || currentPage,
-        href: location.pathname,
+        href: pathname,
         isLast: true,
       });
     }
@@ -96,7 +99,7 @@ export const AdminLayout = ({ children, title, showBackButton = false }: AdminLa
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => navigate(-1)}
+                  onClick={() => router.back()}
                   className="mr-2"
                 >
                   <ArrowLeft className="h-4 w-4" />
@@ -110,20 +113,22 @@ export const AdminLayout = ({ children, title, showBackButton = false }: AdminLa
 
               <Breadcrumb>
                 <BreadcrumbList>
-                  {breadcrumbs.map((breadcrumb, index) => (
-                    <BreadcrumbItem key={index}>
-                      {breadcrumb.isLast ? (
-                        <BreadcrumbPage>{breadcrumb.label}</BreadcrumbPage>
-                      ) : (
-                        <>
+                  {breadcrumbs.map((breadcrumb, index) => [
+                    (
+                      <BreadcrumbItem key={`item-${index}`}>
+                        {breadcrumb.isLast ? (
+                          <BreadcrumbPage>{breadcrumb.label}</BreadcrumbPage>
+                        ) : (
                           <BreadcrumbLink asChild>
-                            <Link to={breadcrumb.href}>{breadcrumb.label}</Link>
+                            <Link href={breadcrumb.href}>{breadcrumb.label}</Link>
                           </BreadcrumbLink>
-                          <BreadcrumbSeparator />
-                        </>
-                      )}
-                    </BreadcrumbItem>
-                  ))}
+                        )}
+                      </BreadcrumbItem>
+                    ),
+                    !breadcrumb.isLast && (
+                      <BreadcrumbSeparator key={`sep-${index}`} />
+                    ),
+                  ])}
                 </BreadcrumbList>
               </Breadcrumb>
             </div>
@@ -144,7 +149,7 @@ export const AdminLayout = ({ children, title, showBackButton = false }: AdminLa
           <div className="flex h-12 items-center space-x-1">
             {navigationItems.map((item) => {
               const Icon = item.icon;
-              const isActive = location.pathname === item.href;
+              const isActive = pathname === item.href;
               
               return (
                 <Button
@@ -154,7 +159,7 @@ export const AdminLayout = ({ children, title, showBackButton = false }: AdminLa
                   asChild
                   className="h-8"
                 >
-                  <Link to={item.href} className="flex items-center space-x-2">
+                  <Link href={item.href} className="flex items-center space-x-2">
                     <Icon className="h-4 w-4" />
                     <span>{item.label}</span>
                   </Link>

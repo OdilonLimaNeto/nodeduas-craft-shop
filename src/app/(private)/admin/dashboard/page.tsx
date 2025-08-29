@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Package, DollarSign, Tag, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { getCookie, deleteCookie } from "cookies-next/client";
+import { logout as logoutService } from "@/services/auth-service";
 
 interface DashboardStats {
   totalProducts: number;
@@ -67,6 +70,22 @@ export default function AdminDashboard() {
     },
   ];
 
+  const handleLogout = async () => {
+    try {
+      const refreshToken = getCookie("refresh_token");
+      if (refreshToken) {
+        try {
+          await logoutService(String(refreshToken));
+        } catch {}
+      }
+    } finally {
+      deleteCookie("jwt");
+      deleteCookie("refresh_token");
+      deleteCookie("user");
+      await signOut({ callbackUrl: "/admin/login" });
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
@@ -81,10 +100,13 @@ export default function AdminDashboard() {
   return (
     <AdminLayout title="Dashboard Administrativo">
       <div className="space-y-8">
-        <div>
+        <div className="flex items-center justify-between">
           <p className="text-muted-foreground">
             Gerencie seu negócio de artesanato de forma eficiente
           </p>
+          <Button variant="outline" onClick={handleLogout}>
+            Sair
+          </Button>
         </div>
 
         <div className="grid gap-4 md:grid-cols-4">
