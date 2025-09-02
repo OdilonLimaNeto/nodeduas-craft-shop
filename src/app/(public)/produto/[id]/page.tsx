@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Heart, Share2, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 
-export const ProductDetails = () => {
+export default function ProductDetails() {
   const { id } = useParams();
 
   return (
