@@ -1,7 +1,4 @@
-"use client";
-
-import { Heart, MessageCircle, Star } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,13 +18,9 @@ interface Product {
 
 interface ProductCardProps {
   product: Product;
-  onToggleFavorite?: (productId: string) => void;
 }
 
-export const ProductCard = ({
-  product,
-  onToggleFavorite,
-}: ProductCardProps) => {
+export const ProductCard = ({ product }: ProductCardProps) => {
   const discount = product.originalPrice
     ? Math.round(
         ((product.originalPrice - product.price) / product.originalPrice) * 100
@@ -38,7 +31,7 @@ export const ProductCard = ({
     <Link href={`/produto/${product.id}`} className="block">
       <div className="group craft-card rounded-xl overflow-hidden hover-lift">
         {/* Image Container */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div className="aspect-[4/3] overflow-hidden">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -46,13 +39,6 @@ export const ProductCard = ({
             height={300}
             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
-
-          {/* Image Count Indicator */}
-          {product.images.length > 1 && (
-            <div className="absolute top-3 right-12 bg-background/80 backdrop-blur-sm text-xs px-2 py-1 rounded">
-              {product.images.length} fotos
-            </div>
-          )}
 
           {/* Badges */}
           <div className="absolute top-3 left-3 flex gap-2">
@@ -64,45 +50,6 @@ export const ProductCard = ({
                 -{discount}%
               </Badge>
             )}
-          </div>
-
-          {/* Favorite Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className={`absolute top-3 right-3 bg-background/80 backdrop-blur-sm hover:bg-background/90 transition-all duration-300 ${
-              product.isFavorite ? "text-craft-coral" : "text-muted-foreground"
-            }`}
-            onClick={(e) => {
-              e.preventDefault();
-              onToggleFavorite?.(product.id);
-            }}
-          >
-            <Heart
-              className={`h-4 w-4 ${product.isFavorite ? "fill-current" : ""}`}
-            />
-          </Button>
-
-          {/* Quick WhatsApp Contact */}
-          <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <Button
-              className="w-full craft-button"
-              onClick={(e) => {
-                e.preventDefault();
-                const message = `Olá! Tenho interesse no produto: ${
-                  product.name
-                } - R$ ${product.price.toFixed(2).replace(".", ",")}`;
-                window.open(
-                  `https://wa.me/5511999999999?text=${encodeURIComponent(
-                    message
-                  )}`,
-                  "_blank"
-                );
-              }}
-            >
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Consultar no WhatsApp
-            </Button>
           </div>
         </div>
 

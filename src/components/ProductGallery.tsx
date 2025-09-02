@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 interface ProductImage {
   id: string;
@@ -14,15 +15,14 @@ interface ProductGalleryProps {
   autoSlideInterval?: number;
 }
 
-export const ProductGallery = ({ 
-  images, 
-  autoSlide = true, 
-  autoSlideInterval = 4000 
+export const ProductGallery = ({
+  images,
+  autoSlide = true,
+  autoSlideInterval = 4000,
 }: ProductGalleryProps) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Auto-slide functionality
   useEffect(() => {
     if (!autoSlide || isHovered || images.length <= 1) return;
 
@@ -55,33 +55,35 @@ export const ProductGallery = ({
 
   return (
     <div className="w-full space-y-4">
-      {/* Main Gallery */}
-      <div 
+      <div
         className="relative group overflow-hidden rounded-lg bg-card"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
         <div className="aspect-[4/3] relative">
           {images.map((image, index) => (
-            <img
+            <Image
               key={image.id}
               src={image.url}
               alt={image.alt}
               className={`absolute inset-0 w-full h-full object-cover gallery-transition ${
-                index === currentImage ? 'opacity-100' : 'opacity-0'
+                index === currentImage ? "opacity-100" : "opacity-0"
               }`}
+              width={64}
+              height={64}
             />
           ))}
         </div>
 
-        {/* Navigation Arrows */}
         {images.length > 1 && (
           <>
             <Button
               variant="outline"
               size="icon"
               className={`absolute left-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm border-border/50 hover:bg-background/90 transition-all duration-300 ${
-                isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2'
+                isHovered
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-2"
               }`}
               onClick={goToPrevious}
             >
@@ -91,7 +93,9 @@ export const ProductGallery = ({
               variant="outline"
               size="icon"
               className={`absolute right-4 top-1/2 -translate-y-1/2 bg-background/80 backdrop-blur-sm border-border/50 hover:bg-background/90 transition-all duration-300 ${
-                isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'
+                isHovered
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 translate-x-2"
               }`}
               onClick={goToNext}
             >
@@ -100,7 +104,6 @@ export const ProductGallery = ({
           </>
         )}
 
-        {/* Dots Indicator */}
         {images.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
             {images.map((_, index) => (
@@ -108,8 +111,8 @@ export const ProductGallery = ({
                 key={index}
                 className={`w-2 h-2 rounded-full transition-all duration-300 ${
                   index === currentImage
-                    ? 'bg-primary scale-125'
-                    : 'bg-background/60 hover:bg-background/80'
+                    ? "bg-primary scale-125"
+                    : "bg-background/60 hover:bg-background/80"
                 }`}
                 onClick={() => goToImage(index)}
               />
@@ -118,7 +121,6 @@ export const ProductGallery = ({
         )}
       </div>
 
-      {/* Thumbnails */}
       {images.length > 1 && (
         <div className="flex space-x-3 justify-center">
           {images.map((image, index) => (
@@ -126,15 +128,17 @@ export const ProductGallery = ({
               key={image.id}
               className={`relative overflow-hidden rounded-md transition-all duration-300 hover-lift ${
                 index === currentImage
-                  ? 'ring-2 ring-primary ring-offset-2 ring-offset-background'
-                  : 'opacity-70 hover:opacity-100'
+                  ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
+                  : "opacity-70 hover:opacity-100"
               }`}
               onClick={() => goToImage(index)}
             >
-              <img
+              <Image
                 src={image.url}
                 alt={`${image.alt} thumbnail`}
                 className="w-16 h-16 object-cover"
+                width={64}
+                height={64}
               />
             </button>
           ))}

@@ -4,9 +4,14 @@
 @plugin "tailwindcss-animate";
 
 @theme {
-  /* Tipografia */
-  --font-serif: "Georgia", "Times New Roman", serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+  --font-heading: var(--font-poppins), "Poppins", ui-sans-serif, system-ui,
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 
   /* Raio padrão para utilitários rounded-* */
   --radius: 0.75rem;
@@ -63,37 +68,77 @@
 
 /* Custom keyframes migrados do antigo tailwind.config */
 @keyframes accordion-down {
-  from { height: 0 }
-  to { height: var(--radix-accordion-content-height) }
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
 }
 @keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height) }
-  to { height: 0 }
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
 }
 @keyframes fade-in {
-  0% { opacity: 0; transform: translateY(10px) }
-  100% { opacity: 1; transform: translateY(0) }
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes slide-in {
-  0% { opacity: 0; transform: translateX(20px) }
-  100% { opacity: 1; transform: translateX(0) }
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 @keyframes gallery-slide {
-  0% { transform: translateX(100%) }
-  100% { transform: translateX(0) }
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* Utilitários para animações customizadas usadas no projeto */
-@utility animate-accordion-down { animation: accordion-down 0.2s ease-out }
-@utility animate-accordion-up { animation: accordion-up 0.2s ease-out }
-@utility animate-fade-in { animation: fade-in 0.6s ease-out }
-@utility animate-slide-in { animation: slide-in 0.4s ease-out }
-@utility animate-gallery-slide { animation: gallery-slide 0.4s cubic-bezier(0.25,0.46,0.45,0.94) }
+@utility animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+@utility animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}
+@utility animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+@utility animate-slide-in {
+  animation: slide-in 0.4s ease-out;
+}
+@utility animate-gallery-slide {
+  animation: gallery-slide 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
 
 /* Utilitários de sombra customizados usados pelo design system */
-@utility shadow-soft { box-shadow: var(--shadow-soft) }
-@utility shadow-warm { box-shadow: var(--shadow-warm) }
-@utility shadow-elegant { box-shadow: var(--shadow-elegant) }
+@utility shadow-soft {
+  box-shadow: var(--shadow-soft);
+}
+@utility shadow-warm {
+  box-shadow: var(--shadow-warm);
+}
+@utility shadow-elegant {
+  box-shadow: var(--shadow-elegant);
+}
 
 /* Nó de Duas - Crochê Artesanal Design System
 Cores inspiradas no mundo aconchegante do crochê e artesanato
@@ -148,9 +193,21 @@ Todas as cores são HSL para máxima flexibilidade
     --radius: 0.75rem;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(var(--craft-cream)), hsl(var(--secondary)));
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--craft-cream)));
-    --gradient-accent: linear-gradient(120deg, hsl(var(--craft-coral)), hsl(var(--secondary-accent)));
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--craft-cream)),
+      hsl(var(--secondary))
+    );
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(var(--card)),
+      hsl(var(--craft-cream))
+    );
+    --gradient-accent: linear-gradient(
+      120deg,
+      hsl(var(--craft-coral)),
+      hsl(var(--secondary-accent))
+    );
 
     /* Shadows */
     --shadow-soft: 0 4px 20px hsla(var(--primary), 0.08);
@@ -212,9 +269,21 @@ Todas as cores são HSL para máxima flexibilidade
     --input: 25 15% 22%;
     --ring: 28 80% 85%;
 
-    --gradient-hero: linear-gradient(135deg, hsl(var(--background)), hsl(var(--craft-cream)));
-    --gradient-card: linear-gradient(145deg, hsl(var(--card)), hsl(var(--muted)));
-    --gradient-accent: linear-gradient(120deg, hsl(var(--craft-coral)), hsl(var(--secondary-accent)));
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(var(--background)),
+      hsl(var(--craft-cream))
+    );
+    --gradient-card: linear-gradient(
+      145deg,
+      hsl(var(--card)),
+      hsl(var(--muted))
+    );
+    --gradient-accent: linear-gradient(
+      120deg,
+      hsl(var(--craft-coral)),
+      hsl(var(--secondary-accent))
+    );
 
     --shadow-soft: 0 4px 20px hsla(0, 0%, 0%, 0.3);
     --shadow-warm: 0 8px 32px hsla(0, 0%, 0%, 0.4);
@@ -236,11 +305,16 @@ Todas as cores são HSL para máxima flexibilidade
   }
 
   body {
-    @apply bg-background text-foreground font-normal antialiased;
+    @apply bg-background text-foreground font-sans font-normal antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-serif;
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading font-semibold;
   }
 }
 

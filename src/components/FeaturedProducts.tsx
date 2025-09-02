@@ -55,17 +55,12 @@ const featuredProducts = [
 ];
 
 export const FeaturedProducts = () => {
-  const handleToggleFavorite = (productId: string) => {
-    console.log("Toggle favorito:", productId);
-    // Aqui você implementaria a lógica de favoritos
-  };
-
   return (
     <section id="produtos" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-4xl font-serif font-bold text-primary mb-4">
+          <h2 className="text-3xl lg:text-4xl font-heading font-bold text-primary mb-4">
             Produtos em Destaque
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -82,10 +77,7 @@ export const FeaturedProducts = () => {
               className="animate-fade-in"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <ProductCard
-                product={product}
-                onToggleFavorite={handleToggleFavorite}
-              />
+              <ProductCard product={product} />
             </div>
           ))}
         </div>
@@ -96,34 +88,6 @@ export const FeaturedProducts = () => {
             Ver Todos os Produtos
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
-        </div>
-
-        {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-border">
-          <div className="text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">
-              50+
-            </div>
-            <div className="text-muted-foreground">Modelos Únicos</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">
-              24h
-            </div>
-            <div className="text-muted-foreground">Envio Rápido</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">
-              100%
-            </div>
-            <div className="text-muted-foreground">Artesanal</div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl lg:text-3xl font-bold text-craft-coral mb-2">
-              ⭐ 4.9
-            </div>
-            <div className="text-muted-foreground">Avaliação</div>
-          </div>
         </div>
       </div>
     </section>

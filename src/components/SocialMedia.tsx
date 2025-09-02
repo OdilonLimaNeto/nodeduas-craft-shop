@@ -1,4 +1,4 @@
-import { Instagram, MessageCircle, Facebook, Heart } from "lucide-react";
+import { Instagram, MessageCircle, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const socialLinks = [
@@ -6,7 +6,8 @@ const socialLinks = [
     name: "Instagram",
     icon: Instagram,
     handle: "@nodeduascrochet",
-    description: "Veja nossos trabalhos em andamento, dicas de crochê e bastidores da criação.",
+    description:
+      "Veja nossos trabalhos em andamento, dicas de crochê e bastidores da criação.",
     url: "https://instagram.com/nodeduascrochet",
     gradient: "from-pink-500 to-purple-600",
   },
@@ -14,17 +15,10 @@ const socialLinks = [
     name: "WhatsApp",
     icon: MessageCircle,
     handle: "Fale Conosco",
-    description: "Entre em contato direto para encomendas personalizadas e dúvidas.",
+    description:
+      "Entre em contato direto para encomendas personalizadas e dúvidas.",
     url: "https://wa.me/5511999999999",
     gradient: "from-green-500 to-emerald-600",
-  },
-  {
-    name: "Facebook",
-    icon: Facebook,
-    handle: "Nó de Duas",
-    description: "Conecte-se com nossa comunidade e acompanhe novidades e promoções.",
-    url: "https://facebook.com/nodeduascrochet",
-    gradient: "from-blue-600 to-blue-800",
   },
 ];
 
@@ -41,12 +35,13 @@ export const SocialMedia = () => {
             <Heart className="w-6 h-6 text-craft-coral" />
           </div>
           <p className="text-lg text-craft-muted max-w-2xl mx-auto">
-            Siga-nos nas redes sociais e faça parte da nossa comunidade artesanal.
-            Compartilhamos dicas, inspirações e muito amor pelo crochê!
+            Siga-nos nas redes sociais e faça parte da nossa comunidade
+            artesanal. Compartilhamos dicas, inspirações e muito amor pelo
+            crochê!
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {socialLinks.map((social, index) => {
             const IconComponent = social.icon;
             return (
@@ -55,7 +50,9 @@ export const SocialMedia = () => {
                 className="craft-card p-8 text-center hover-lift group"
               >
                 <div className="mb-6">
-                  <div className={`w-20 h-20 mx-auto bg-gradient-to-br ${social.gradient} rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                  <div
+                    className={`w-20 h-20 mx-auto bg-gradient-to-br ${social.gradient} rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                  >
                     <IconComponent className="w-10 h-10 text-white" />
                   </div>
                 </div>
@@ -87,15 +84,6 @@ export const SocialMedia = () => {
               </div>
             );
           })}
-        </div>
-
-        <div className="text-center mt-12">
-          <div className="craft-card p-6 inline-block">
-            <p className="text-craft-muted">
-              <span className="font-semibold">Hashtags:</span>{" "}
-              #NóDeDuas #CrochêArtesanal #FeitoComAmor #ArtesanatoBrasil
-            </p>
-          </div>
         </div>
       </div>
     </section>

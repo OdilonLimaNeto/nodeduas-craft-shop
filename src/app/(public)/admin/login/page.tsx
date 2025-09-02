@@ -58,7 +58,7 @@ export default function AdminLogin() {
           <div className="w-12 h-12 bg-primary rounded-lg mx-auto mb-4 flex items-center justify-center">
             <span className="text-primary-foreground font-bold text-lg">A</span>
           </div>
-          <h1 className="text-2xl font-serif font-bold text-primary">
+          <h1 className="text-2xl font-heading font-bold text-primary">
             Painel Administrativo
           </h1>
           <p className="text-muted-foreground">Acesso ao sistema de gestão</p>

@@ -43,7 +43,7 @@ export const Header = () => {
               </span>
             </div>
             <div>
-              <h1 className="text-xl font-serif font-bold text-primary">
+              <h1 className="text-xl font-heading font-bold text-primary">
                 Nó de Duas
               </h1>
               <p className="text-xs text-muted-foreground -mt-1">

@@ -7,7 +7,7 @@ export default function NotFound() {
       <div className="w-14 h-14 bg-primary rounded-xl flex items-center justify-center mb-6">
         <span className="text-primary-foreground font-bold">404</span>
       </div>
-      <h1 className="text-3xl md:text-4xl font-serif font-bold mb-2">
+      <h1 className="text-3xl md:text-4xl font-heading font-bold mb-2">
         Página não encontrada
       </h1>
       <p className="text-muted-foreground mb-8 max-w-prose">

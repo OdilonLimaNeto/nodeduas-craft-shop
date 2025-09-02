@@ -2,27 +2,24 @@ import { useState } from "react";
 import { ProductGallery } from "./ProductGallery";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MessageCircle, Shield, Award, Truck, RotateCcw } from "lucide-react";
-import crochetBag1 from "@/assets/crochet-bag-1.jpg";
-import crochetScarf1 from "@/assets/crochet-scarf-1.jpg";
-import crochetHat1 from "@/assets/crochet-hat-1.jpg";
+import { Heart, MessageCircle, Shield, Truck, RotateCcw } from "lucide-react";
 
 const productImages = [
   {
     id: "1",
-    url: crochetBag1,
-    alt: "Bolsa de crochê artesanal coral - vista frontal"
+    url: "@/assets/crochet-bag-1.jpg",
+    alt: "Bolsa de crochê artesanal coral - vista frontal",
   },
   {
-    id: "2", 
-    url: crochetScarf1,
-    alt: "Bolsa de crochê artesanal coral - vista lateral"
+    id: "2",
+    url: "@/assets/crochet-scarf-1.jpg",
+    alt: "Bolsa de crochê artesanal coral - vista lateral",
   },
   {
     id: "3",
-    url: crochetHat1,
-    alt: "Bolsa de crochê artesanal coral - detalhes"
-  }
+    url: "@/assets/crochet-hat-1.jpg",
+    alt: "Bolsa de crochê artesanal coral - detalhes",
+  },
 ];
 
 export const ProductShowcase = () => {
@@ -33,31 +30,36 @@ export const ProductShowcase = () => {
   const product = {
     name: "Bolsa Artesanal Premium",
     category: "Bolsas & Acessórios",
-    price: 89.90,
-    originalPrice: 120.00,
-    description: "Uma bolsa única feita à mão com fios de alta qualidade. Perfeita para o dia a dia, combina estilo e funcionalidade. Cada peça é cuidadosamente confeccionada com amor e atenção aos detalhes.",
+    price: 89.9,
+    originalPrice: 120.0,
+    description:
+      "Uma bolsa única feita à mão com fios de alta qualidade. Perfeita para o dia a dia, combina estilo e funcionalidade. Cada peça é cuidadosamente confeccionada com amor e atenção aos detalhes.",
     features: [
       "100% feita à mão",
       "Fios de algodão premium",
       "Resistente e durável",
       "Design exclusivo",
-      "Alça confortável"
+      "Alça confortável",
     ],
     colors: [
       { name: "coral", label: "Coral", color: "bg-craft-coral" },
       { name: "sage", label: "Verde Musgo", color: "bg-craft-sage" },
-      { name: "cream", label: "Creme", color: "bg-craft-cream" }
+      { name: "cream", label: "Creme", color: "bg-craft-cream" },
     ],
     rating: 4.8,
-    reviewCount: 24
+    reviewCount: 24,
   };
 
-  const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+  const discount = Math.round(
+    ((product.originalPrice - product.price) / product.originalPrice) * 100
+  );
 
   const handleWhatsAppContact = () => {
     const message = `Olá! Tenho interesse na ${product.name} na cor ${selectedColor}. Poderia me dar mais informações?`;
-    const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(
+      message
+    )}`;
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
@@ -74,21 +76,23 @@ export const ProductShowcase = () => {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Badge className="bg-craft-coral text-white">Novo</Badge>
-                <Badge className="bg-primary text-primary-foreground">-{discount}%</Badge>
+                <Badge className="bg-primary text-primary-foreground">
+                  -{discount}%
+                </Badge>
               </div>
-              
+
               <p className="text-muted-foreground mb-2">{product.category}</p>
-              <h1 className="text-3xl lg:text-4xl font-serif font-bold text-primary mb-4">
+              <h1 className="text-3xl lg:text-4xl font-heading font-bold text-primary mb-4">
                 {product.name}
               </h1>
-              
+
               <div className="flex items-center space-x-4 mb-6">
                 <div className="flex items-center space-x-2">
                   <div className="text-3xl font-bold text-craft-coral">
-                    R$ {product.price.toFixed(2).replace('.', ',')}
+                    R$ {product.price.toFixed(2).replace(".", ",")}
                   </div>
                   <div className="text-lg text-muted-foreground line-through">
-                    R$ {product.originalPrice.toFixed(2).replace('.', ',')}
+                    R$ {product.originalPrice.toFixed(2).replace(".", ",")}
                   </div>
                 </div>
               </div>
@@ -105,10 +109,12 @@ export const ProductShowcase = () => {
                 {product.colors.map((color) => (
                   <button
                     key={color.name}
-                    className={`relative w-10 h-10 rounded-full ${color.color} border-2 transition-all ${
-                      selectedColor === color.name 
-                        ? 'border-primary scale-110' 
-                        : 'border-border hover:border-primary/50'
+                    className={`relative w-10 h-10 rounded-full ${
+                      color.color
+                    } border-2 transition-all ${
+                      selectedColor === color.name
+                        ? "border-primary scale-110"
+                        : "border-border hover:border-primary/50"
                     }`}
                     onClick={() => setSelectedColor(color.name)}
                     title={color.label}
@@ -134,7 +140,9 @@ export const ProductShowcase = () => {
                 >
                   -
                 </Button>
-                <span className="w-12 text-center font-semibold">{quantity}</span>
+                <span className="w-12 text-center font-semibold">
+                  {quantity}
+                </span>
                 <Button
                   variant="outline"
                   size="icon"
@@ -147,23 +155,27 @@ export const ProductShowcase = () => {
 
             {/* Action Buttons */}
             <div className="space-y-4">
-              <Button 
-                className="w-full craft-button" 
+              <Button
+                className="w-full craft-button"
                 size="lg"
                 onClick={handleWhatsAppContact}
               >
                 <MessageCircle className="mr-2 h-5 w-5" />
                 Comprar via WhatsApp
               </Button>
-              
-              <Button 
-                variant="outline" 
+
+              <Button
+                variant="outline"
                 size="lg"
-                className={`w-full ${isFavorite ? 'text-craft-coral border-craft-coral' : ''}`}
+                className={`w-full ${
+                  isFavorite ? "text-craft-coral border-craft-coral" : ""
+                }`}
                 onClick={() => setIsFavorite(!isFavorite)}
               >
-                <Heart className={`mr-2 h-5 w-5 ${isFavorite ? 'fill-current' : ''}`} />
-                {isFavorite ? 'Favoritado' : 'Favoritar'}
+                <Heart
+                  className={`mr-2 h-5 w-5 ${isFavorite ? "fill-current" : ""}`}
+                />
+                {isFavorite ? "Favoritado" : "Favoritar"}
               </Button>
             </div>
 
@@ -172,7 +184,10 @@ export const ProductShowcase = () => {
               <h3 className="font-semibold text-primary">Características</h3>
               <ul className="space-y-2">
                 {product.features.map((feature, index) => (
-                  <li key={index} className="flex items-center space-x-2 text-muted-foreground">
+                  <li
+                    key={index}
+                    className="flex items-center space-x-2 text-muted-foreground"
+                  >
                     <div className="w-1.5 h-1.5 bg-craft-coral rounded-full"></div>
                     <span>{feature}</span>
                   </li>
@@ -184,15 +199,21 @@ export const ProductShowcase = () => {
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-border">
               <div className="text-center space-y-2">
                 <Truck className="w-6 h-6 text-craft-sage mx-auto" />
-                <div className="text-xs text-muted-foreground">Entrega em todo Brasil</div>
+                <div className="text-xs text-muted-foreground">
+                  Entrega em todo Brasil
+                </div>
               </div>
               <div className="text-center space-y-2">
                 <Shield className="w-6 h-6 text-craft-sage mx-auto" />
-                <div className="text-xs text-muted-foreground">Garantia de qualidade</div>
+                <div className="text-xs text-muted-foreground">
+                  Garantia de qualidade
+                </div>
               </div>
               <div className="text-center space-y-2">
                 <RotateCcw className="w-6 h-6 text-craft-sage mx-auto" />
-                <div className="text-xs text-muted-foreground">7 dias para troca</div>
+                <div className="text-xs text-muted-foreground">
+                  7 dias para troca
+                </div>
               </div>
             </div>
           </div>

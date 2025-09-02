@@ -25,7 +25,7 @@ export const Hero = () => {
                 </span>
               </div>
 
-              <h1 className="text-4xl lg:text-6xl font-serif font-bold text-primary leading-tight">
+              <h1 className="text-4xl lg:text-6xl font-heading font-bold text-primary leading-tight">
                 Crochê Artesanal
                 <span className="block text-craft-coral">Feito com Amor</span>
               </h1>
@@ -39,7 +39,7 @@ export const Hero = () => {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button className="craft-button group">
-                Ver Coleção
+                Ver produtos
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Button>
 

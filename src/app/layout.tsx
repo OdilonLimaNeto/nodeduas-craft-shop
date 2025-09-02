@@ -1,11 +1,16 @@
 import { AuthProvider } from "@/providers/authProvider";
 import { ThemeProvider } from "@/providers/theme-provider";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+});
 
 export const metadata: Metadata = {
   title: "Nó de duas",
@@ -19,7 +24,10 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <html lang="pt-BR" suppressHydrationWarning>
-        <body className={inter.className} suppressHydrationWarning>
+        <body
+          className={`${inter.className} ${poppins.variable}`}
+          suppressHydrationWarning
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
