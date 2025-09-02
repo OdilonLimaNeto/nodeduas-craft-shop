@@ -38,9 +38,11 @@ export const Hero = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="craft-button group">
-                Ver produtos
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <Button className="craft-button group" asChild>
+                <Link href="/produtos">
+                  Ver produtos
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
               </Button>
 
               <Button

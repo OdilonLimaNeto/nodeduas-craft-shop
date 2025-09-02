@@ -5,6 +5,7 @@ import { jwtDecode } from "jwt-decode";
 const publicRoutes = [
   { path: "/admin/login", whenAuthenticated: "redirect" }, // O usuário não deve acessar o signIn quando estiver logado
   { path: "/produto/:id", whenAuthenticated: "next" },
+  { path: "/produtos", whenAuthenticated: "next" },
   { path: "/", whenAuthenticated: "next" }, // se estiver autenticado e tentar acessa a home --> acesso permitido
 ] as const;
 

@@ -127,14 +127,14 @@ export default function ProductDetails() {
             </div>
 
             <div className="flex gap-4 pt-6">
-              <Button className="craft-button flex-1">
+              <Button className="craft-button flex-1 cursor-pointer">
                 <ShoppingCart className="mr-2 h-4 w-4" />
                 Entrar em Contato
               </Button>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" className="cursor-pointer">
                 <Heart className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon">
+              <Button variant="outline" size="icon" className="cursor-pointer">
                 <Share2 className="h-4 w-4" />
               </Button>
             </div>
@@ -144,4 +144,4 @@ export default function ProductDetails() {
       <Footer />
     </div>
   );
-};
+}
