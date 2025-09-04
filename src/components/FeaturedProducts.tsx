@@ -2,6 +2,7 @@
 
 import { Product } from "@/interfaces/product";
 import { ProductCard } from "./ProductCard";
+import { ProductCardSkeleton } from "./ProductCardSkeleton";
 import { Button } from "@/components/ui/button";
 import { getFeaturedProducts } from "@/services/products-service";
 import { ArrowRight } from "lucide-react";
@@ -48,15 +49,40 @@ export const FeaturedProducts = () => {
 
         {/* Products Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {featuredProducts.map((product, index) => (
-            <div
-              key={product.id}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 150}ms` }}
-            >
-              <ProductCard product={product} />
-            </div>
-          ))}
+          {isLoading &&
+            Array.from({ length: 6 }).map((_, index) => (
+              <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+                <ProductCardSkeleton />
+              </div>
+            ))}
+
+          {!isLoading && featuredProductList.length > 0 &&
+            featuredProductList.map((product, index) => (
+              <div
+                key={product.id}
+                className="animate-fade-in"
+                style={{ animationDelay: `${index * 150}ms` }}
+              >
+                <ProductCard
+                  product={{
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    originalPrice: product.originalPrice,
+                    images: product.images?.map((img) => (typeof img === "string" ? img : img.imageUrl)) ?? [],
+                    rating: product.rating ?? 0,
+                    reviewCount: product.reviewCount ?? 0,
+                    category: product.category ?? "",
+                    isNew: product.isFeatured,
+                    isFavorite: false,
+                  }}
+                />
+              </div>
+            ))}
+
+          {!isLoading && featuredProductList.length === 0 && (
+            <div className="col-span-full text-center text-muted-foreground">Nenhum produto encontrado.</div>
+          )}
         </div>
 
         {/* View All Button */}

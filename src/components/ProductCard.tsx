@@ -88,16 +88,16 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             <div className="space-y-1">
               <div className="flex items-center space-x-2">
                 <span className="text-xl font-bold text-craft-coral">
-                  R$ {product.price.toFixed(2).replace(".", ",")}
+                  R$ {product.price}
                 </span>
                 {product.originalPrice && (
                   <span className="text-sm text-muted-foreground line-through">
-                    R$ {product.originalPrice.toFixed(2).replace(".", ",")}
+                    R$ {product.originalPrice}
                   </span>
                 )}
               </div>
               <p className="text-xs text-muted-foreground">
-                ou 3x de R$ {(product.price / 3).toFixed(2).replace(".", ",")}{" "}
+                ou 3x de R$ {(product.price / 3)}{" "}
                 sem juros
               </p>
             </div>
