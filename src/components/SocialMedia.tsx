@@ -24,7 +24,7 @@ const socialLinks = [
 
 export const SocialMedia = () => {
   return (
-    <section className="py-16 bg-craft-light">
+    <section id="contato" className="scroll-mt-24 py-16 bg-craft-light">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-2 mb-4">

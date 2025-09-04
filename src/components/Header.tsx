@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const ThemeToggle = () => {
   const { theme, setTheme } = useTheme();
@@ -54,30 +55,30 @@ export const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <a
-              href="#"
+            <Link
+              href="/"
               className="text-foreground hover:text-primary transition-colors"
             >
               Início
-            </a>
-            <a
-              href="#produtos"
+            </Link>
+            <Link
+              href="/#produtos"
               className="text-foreground hover:text-primary transition-colors"
             >
               Produtos
-            </a>
-            <a
-              href="#sobre"
+            </Link>
+            <Link
+              href="/#sobre"
               className="text-foreground hover:text-primary transition-colors"
             >
               Sobre
-            </a>
-            <a
-              href="#contato"
+            </Link>
+            <Link
+              href="/#contato"
               className="text-foreground hover:text-primary transition-colors"
             >
               Contato
-            </a>
+            </Link>
           </nav>
 
           {/* Desktop Search & Actions */}
@@ -126,30 +127,30 @@ export const Header = () => {
               />
             </div>
             <nav className="space-y-2">
-              <a
-                href="#"
+              <Link
+                href="/"
                 className="block py-2 text-foreground hover:text-primary transition-colors"
               >
                 Início
-              </a>
-              <a
-                href="#produtos"
+              </Link>
+              <Link
+                href="/#produtos"
                 className="block py-2 text-foreground hover:text-primary transition-colors"
               >
                 Produtos
-              </a>
-              <a
-                href="#sobre"
+              </Link>
+              <Link
+                href="/#sobre"
                 className="block py-2 text-foreground hover:text-primary transition-colors"
               >
                 Sobre
-              </a>
-              <a
-                href="#contato"
+              </Link>
+              <Link
+                href="/#contato"
                 className="block py-2 text-foreground hover:text-primary transition-colors"
               >
                 Contato
-              </a>
+              </Link>
             </nav>
             <div className="flex items-center space-x-4 pt-2">
               <Button

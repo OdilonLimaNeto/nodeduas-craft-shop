@@ -48,9 +48,12 @@ export const Hero = () => {
               <Button
                 variant="outline"
                 className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                asChild
               >
-                <Heart className="mr-2 h-4 w-4" />
-                Sobre o Nó de Duas
+                <Link href="/#sobre">
+                  <Heart className="mr-2 h-4 w-4" />
+                  Sobre o Nó de Duas
+                </Link>
               </Button>
             </div>
 

@@ -56,7 +56,7 @@ const featuredProducts = [
 
 export const FeaturedProducts = () => {
   return (
-    <section id="produtos" className="py-20 bg-background">
+    <section id="produtos" className="scroll-mt-24 py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
