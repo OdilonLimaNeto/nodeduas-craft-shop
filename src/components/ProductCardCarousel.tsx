@@ -5,18 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  originalPrice?: number;
-  images: string[]; // expect at least 3 images
-  rating: number;
-  reviewCount: number;
-  category: string;
-  isNew?: boolean;
-}
+import { Product } from "@/interfaces/product";
+import { ProductImage } from "@/interfaces/product-image";
 
 interface ProductCardCarouselProps {
   product: Product;
@@ -24,28 +14,23 @@ interface ProductCardCarouselProps {
 
 export const ProductCardCarousel = ({ product }: ProductCardCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const total = product.images.length;
-  const safeImages = useMemo(() => {
-    if (total >= 3) return product.images;
-    // ensure at least 3 images repeating if necessary
-    const arr: string[] = [];
-    while (arr.length < 3) {
-      arr.push(
-        product.images[arr.length % Math.max(1, total)] ?? product.images[0]
-      );
-    }
-    return arr;
-  }, [product.images, total]);
+  // Use the exact number of images; map to URLs if needed
+  const imageUrls = useMemo<string[]>(() => {
+    return (product.images ?? []).map((img: ProductImage | string) =>
+      typeof img === "string" ? img : img.imageUrl
+    );
+  }, [product.images]);
 
   const startAutoplay = (immediate?: boolean) => {
-    if (intervalRef.current) return;
+    if (intervalRef.current || imageUrls.length <= 1) return;
     if (immediate) {
-      setCurrentIndex((prev) => (prev + 1) % safeImages.length);
+      setCurrentIndex((prev) => (prev + 1) % imageUrls.length);
     }
     intervalRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % safeImages.length);
+      setCurrentIndex((prev) => (prev + 1) % imageUrls.length);
     }, 1200);
   };
 
@@ -62,10 +47,10 @@ export const ProductCardCarousel = ({ product }: ProductCardCarouselProps) => {
 
   const goPrev = () =>
     setCurrentIndex(
-      (prev) => (prev - 1 + safeImages.length) % safeImages.length
+      (prev) => (prev - 1 + imageUrls.length) % imageUrls.length
     );
   const goNext = () =>
-    setCurrentIndex((prev) => (prev + 1) % safeImages.length);
+    setCurrentIndex((prev) => (prev + 1) % imageUrls.length);
 
   const discount = product.originalPrice
     ? Math.round(
@@ -82,7 +67,7 @@ export const ProductCardCarousel = ({ product }: ProductCardCarouselProps) => {
       >
         {/* Image carousel */}
         <div className="relative aspect-[4/3] overflow-hidden">
-          {safeImages.map((src, idx) => (
+          {imageUrls.map((src, idx) => (
             <Image
               key={idx}
               src={src}
@@ -97,7 +82,7 @@ export const ProductCardCarousel = ({ product }: ProductCardCarouselProps) => {
 
           {/* Badges */}
           <div className="absolute top-3 left-3 flex gap-2 z-10">
-            {product.isNew && (
+            {product.isFeatured && (
               <Badge className="bg-craft-coral text-white">Novo</Badge>
             )}
             {discount > 0 && (
@@ -108,44 +93,50 @@ export const ProductCardCarousel = ({ product }: ProductCardCarouselProps) => {
           </div>
 
           {/* Arrows */}
-          <button
-            type="button"
-            aria-label="Imagem anterior"
-            onClick={(e) => {
-              e.preventDefault();
-              goPrev();
-            }}
-            onMouseEnter={stopAutoplay}
-            onMouseLeave={() => startAutoplay()}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center rounded-full bg-background/80 backdrop-blur border border-border w-9 h-9 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
-          >
-            <ChevronLeft className="w-5 h-5 text-foreground" />
-          </button>
-          <button
-            type="button"
-            aria-label="Próxima imagem"
-            onClick={(e) => {
-              e.preventDefault();
-              goNext();
-            }}
-            onMouseEnter={stopAutoplay}
-            onMouseLeave={() => startAutoplay()}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center rounded-full bg-background/80 backdrop-blur border border-border w-9 h-9 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
-          >
-            <ChevronRight className="w-5 h-5 text-foreground" />
-          </button>
+          {imageUrls.length > 1 && (
+            <>
+              <button
+                type="button"
+                aria-label="Imagem anterior"
+                onClick={(e) => {
+                  e.preventDefault();
+                  goPrev();
+                }}
+                onMouseEnter={stopAutoplay}
+                onMouseLeave={() => startAutoplay()}
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center rounded-full bg-background/80 backdrop-blur border border-border w-9 h-9 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+              >
+                <ChevronLeft className="w-5 h-5 text-foreground" />
+              </button>
+              <button
+                type="button"
+                aria-label="Próxima imagem"
+                onClick={(e) => {
+                  e.preventDefault();
+                  goNext();
+                }}
+                onMouseEnter={stopAutoplay}
+                onMouseLeave={() => startAutoplay()}
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center rounded-full bg-background/80 backdrop-blur border border-border w-9 h-9 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-background"
+              >
+                <ChevronRight className="w-5 h-5 text-foreground" />
+              </button>
+            </>
+          )}
 
           {/* Dots */}
-          <div className="absolute bottom-3 left-0 right-0 flex items-center justify-center gap-1.5 z-10">
-            {safeImages.map((_, i) => (
-              <span
-                key={i}
-                className={`h-1.5 rounded-full transition-all ${
-                  i === currentIndex ? "w-6 bg-craft-coral" : "w-2 bg-border"
-                }`}
-              />
-            ))}
-          </div>
+          {imageUrls.length > 1 && (
+            <div className="absolute bottom-3 left-0 right-0 flex items-center justify-center gap-1.5 z-10">
+              {imageUrls.map((_, i) => (
+                <span
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all ${
+                    i === currentIndex ? "w-6 bg-craft-coral" : "w-2 bg-border"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -181,11 +172,11 @@ export const ProductCardCarousel = ({ product }: ProductCardCarouselProps) => {
 
             <div className="space-x-2">
               <span className="text-xl font-bold text-craft-coral">
-                R$ {product.price.toFixed(2).replace(".", ",")}
+                R$ {product?.price}
               </span>
               {product.originalPrice && (
                 <span className="text-sm text-muted-foreground line-through">
-                  R$ {product.originalPrice.toFixed(2).replace(".", ",")}
+                  R$ {product?.originalPrice}
                 </span>
               )}
             </div>

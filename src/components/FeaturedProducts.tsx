@@ -50,13 +50,18 @@ export const FeaturedProducts = () => {
         {/* Products Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {isLoading &&
-            Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+            Array.from({ length: 3 }).map((_, index) => (
+              <div
+                key={index}
+                className="animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
                 <ProductCardSkeleton />
               </div>
             ))}
 
-          {!isLoading && featuredProductList.length > 0 &&
+          {!isLoading &&
+            featuredProductList.length > 0 &&
             featuredProductList.map((product, index) => (
               <div
                 key={product.id}
@@ -69,7 +74,10 @@ export const FeaturedProducts = () => {
                     name: product.name,
                     price: product.price,
                     originalPrice: product.originalPrice,
-                    images: product.images?.map((img) => (typeof img === "string" ? img : img.imageUrl)) ?? [],
+                    images:
+                      product.images?.map((img) =>
+                        typeof img === "string" ? img : img.imageUrl
+                      ) ?? [],
                     rating: product.rating ?? 0,
                     reviewCount: product.reviewCount ?? 0,
                     category: product.category ?? "",
@@ -81,7 +89,9 @@ export const FeaturedProducts = () => {
             ))}
 
           {!isLoading && featuredProductList.length === 0 && (
-            <div className="col-span-full text-center text-muted-foreground">Nenhum produto encontrado.</div>
+            <div className="col-span-full text-center text-muted-foreground">
+              Nenhum produto encontrado.
+            </div>
           )}
         </div>
 
